@@ -11,6 +11,7 @@ import InvestigationOfficer from "./Components/InvestigationOfficer";
 import DirectorInvestigation from "./Components/DirectorInvestigation";
 import AssistantCommissioner from './components/AssistantCommissioner';
 import SurveillenceOfficer from "./Components/SurveillenceOffice/SurveillenceOfficer.jsx";
+import NewSurveillenceCase from "./Components/SurveillenceOffice/NewSurveillenceCase.jsx";
 import TaxReportView from "./Components/TaxReportView.jsx";
 import History from './components/History';
 import NewCase from './Components/TaxReportForm.jsx'
@@ -40,16 +41,17 @@ function App() {
             <Router>
                 <Routes>
                     <Route path="/login" element={<Login />} />
-                    <Route path="/" element={<Navigate to="/home" />} />
+                    <Route path="/" element={<Navigate to="/" />} />
 
-                    {/*<Route*/}
-                    {/*    path="/intelligence"*/}
-                    {/*    element={*/}
-                    {/*        <ProtectedRoute>*/}
-                    {/*            <Intelligence />*/}
-                    {/*        </ProtectedRoute>*/}
-                    {/*    }*/}
-                    {/*/>*/}
+                    <Route
+                        path="/"
+                        element={
+                            <ProtectedRoute>
+                                <Sidebar />
+                            </ProtectedRoute>
+                        }
+                    />
+
 
                     <Route
                         path="director-intelligence"
@@ -99,6 +101,13 @@ function App() {
                              <SurveillenceOfficer/>
                             </ProtectedRoute>
                     }/>
+                    <Route
+                        path="surveillence-officer/New"
+                        element={
+                            <ProtectedRoute>
+                                <NewSurveillenceCase/>
+                            </ProtectedRoute>
+                        }/>
 
                     <Route
                         path="Director-Investigation"

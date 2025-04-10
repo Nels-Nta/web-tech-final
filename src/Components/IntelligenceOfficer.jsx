@@ -1,99 +1,81 @@
 import React, { useState } from 'react';
 import '../Styles/Table.css';
 import { Link, Outlet } from 'react-router-dom';
+import {
+    Button,
+    IconButton,
+    Paper,
+    Table, TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    TextField
+} from "@mui/material";
+import {Add, Description, Search} from "@mui/icons-material";
+import SendIcon from "@mui/icons-material/Send";
+import AttachFileIcon from "@mui/icons-material/AttachFile";
 
 const IntelligenceOfficer = () => {
-    const [searchQuery, setSearchQuery] = useState('');
-    const [cases, setCases] = useState([
-        {
-            caseId: 'C2007123',
-            tinNumber: '101111',
-            reportedDate: '27/09/2023',
-            status: 'Active',
-        },
-        {
-            caseId: 'C2007124',
-            tinNumber: '101112',
-            period: '1',
-            taxType: 'Land Tax',
-            status: 'Completed',
-        },
-    ]);
-
-    const handleSearch = (e) => {
-        e.preventDefault();
-        console.log('Searching for:', searchQuery);
-    };
-
-
-
     return (
-        <div className="dashboard">
-            <div className="search-container">
-                <input
-                    type="text"
-                    placeholder="Search..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                />
-                <button type="submit">
-                    <i className="fa fa-search"></i>
-                </button>
-                <div className="new-case-btn">
-                    <Link to="newCase">
-                        <button>New</button>
-                    </Link>
+        <div style={{ padding: "20px" }}>
+            {/* Search Bar & New Button */}
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "10px" }}>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                    <TextField size="small" placeholder="Search" variant="outlined" />
+                    <IconButton>
+                        <Search />
+                    </IconButton>
                 </div>
+                <Link to={"/intelligence-officer/newCase"}>
+                    <Button variant="contained" color="primary" startIcon={<Add />}>
+                        New
+                    </Button>
+                </Link>
             </div>
 
-            <div className="table-container">
-                <table className="cases-table">
-                    <thead>
-                    <tr>
-                        <th>Case ID</th>
-                        <th>Tin Number</th>
-                        <th>Period/Reported Date</th>
-                        <th>Tax Type</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {cases.map((caseItem, index) => (
-                        <tr key={index}>
-                            <td>{caseItem.caseId}</td>
-                            <td>{caseItem.tinNumber}</td>
-                            <td>{caseItem.period || caseItem.reportedDate}</td>
-                            <td>{caseItem.taxType || '-'}</td>
-                            <td>
-                                    <span className={`status-badge ${caseItem.status.toLowerCase()}`}>
-                                        {caseItem.status}
-                                    </span>
-                            </td>
-                            <td className="action-buttons">
-                                <Link to="view">
-                                    <button className="action-btn view-btn">
-                                        <i className="fa fa-eye"></i>
-                                    </button>
+            {/* Table */}
+            <TableContainer component={Paper}>
+                <Table>
+                    <TableHead>
+                        <TableRow style={{ backgroundColor: "#cfd8dc" }}>
+                            <TableCell>Case Id</TableCell>
+                            <TableCell>Tin Number</TableCell>
+                            <TableCell>Period</TableCell>
+                            <TableCell>Tax Type</TableCell>
+                            <TableCell>Status</TableCell>
+                            <TableCell>Action</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        <TableRow>
+                            <TableCell>CS001/25</TableCell>
+                            <TableCell>100111</TableCell>
+                            <TableCell>1</TableCell>
+                            <TableCell>Land Tax</TableCell>
+                            <TableCell style={{ fontSize: "12px", color: "#555" }}>
+                                submitted for review
+                            </TableCell>
+                            <TableCell>
+                                <Link to={"/Director-Intelligence"}>
+                                    <IconButton >
+                                        <SendIcon />
+                                    </IconButton>
                                 </Link>
-                                <button className="action-btn edit-btn">
-                                    <i className="fa fa-pencil"></i>
-                                </button>
-                                <button className="action-btn delete-btn">
-                                    <i className="fa fa-trash"></i>
-                                </button>
-                                <button>
-                                    <i className="fa fa-file-text" ></i>
-                                </button>
-                                <button>
-                                    <i className="fa fa-times" aria-hidden="true"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    ))}
-                    </tbody>
-                </table>
-            </div>
+                                <IconButton color="default">
+                                    <Description />
+                                </IconButton>
+                                <IconButton color="success">
+                                    <Add />
+                                </IconButton>
+                                <IconButton >
+                                    <AttachFileIcon />
+                                </IconButton>
+                            </TableCell>
+                        </TableRow>
+                    </TableBody>
+                </Table>
+            </TableContainer>
         </div>
     );
 };

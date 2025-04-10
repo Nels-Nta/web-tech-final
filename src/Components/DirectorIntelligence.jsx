@@ -53,11 +53,11 @@ const DirectorIntelligence = () => {
                         <IconButton color="error">
                             <Close />
                         </IconButton>
-                        <Link to="/some-path">
-                            <IconButton color="default">
-                                <ArrowForward />
-                            </IconButton>
-                        </Link>
+                        {/*<Link to="/some-path">*/}
+                        {/*    <IconButton color="default">*/}
+                        {/*        <ArrowForward />*/}
+                        {/*    </IconButton>*/}
+                        {/*</Link>*/}
                     </TableCell>
                 </TableRow>
             </TableBody>

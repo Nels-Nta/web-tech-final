@@ -13,6 +13,8 @@ import {
 } from "@mui/material";
 import { Search, Add, ArrowForward, Description } from "@mui/icons-material";
 import AttachFileIcon from '@mui/icons-material/AttachFile';
+import {Link} from "react-router-dom";
+import SendIcon from "@mui/icons-material/Send";
 
 const InvestigationOfficer = () => {
   return(
@@ -50,12 +52,14 @@ const InvestigationOfficer = () => {
                           <TableCell>1</TableCell>
                           <TableCell>Land Tax</TableCell>
                           <TableCell style={{ fontSize: "12px", color: "#555" }}>
-                              Submitted to Intelligence Officer
+                              Received from Director Investigation
                           </TableCell>
                           <TableCell>
-                              <IconButton color="primary">
-                                  <ArrowForward />
-                              </IconButton>
+                              <Link to={"/Director-Investigation"}>
+                                  <IconButton >
+                                      <SendIcon />
+                                  </IconButton>
+                              </Link>
                               <IconButton color="default">
                                   <Description />
                               </IconButton>
@@ -65,7 +69,6 @@ const InvestigationOfficer = () => {
                               <IconButton >
                                   <AttachFileIcon />
                               </IconButton>
-
                           </TableCell>
                       </TableRow>
                   </TableBody>

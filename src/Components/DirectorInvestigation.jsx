@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import {IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
 import {Link} from "react-router-dom";
 import {ArrowForward, Check, Close, Description} from "@mui/icons-material";
+import SendIcon from "@mui/icons-material/Send";
 
 const DirectorInvestigation = () => {
     const [searchQuery, setSearchQuery] = useState('');
@@ -51,9 +52,7 @@ const DirectorInvestigation = () => {
                                 <IconButton color="error">
                                     <Close />
                                 </IconButton>
-                                <IconButton color="default">
-                                    <ArrowForward />
-                                </IconButton>
+
                             </TableCell>
                         </TableRow>
                     </TableBody>
