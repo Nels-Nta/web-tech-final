@@ -1,7 +1,7 @@
-// src/App.js
 import React, { useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, AuthContext } from './context/AuthContext';
+import Home from './Components/Home.jsx'
 import Login from './components/Login';
 import Sidebar from './components/SideNav.jsx';
 import Header from './components/Header';
@@ -40,11 +40,18 @@ function App() {
         <AuthProvider>
             <Router>
                 <Routes>
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/" element={<Navigate to="/" />} />
+                    <Route path="/" element={<Login />} />
+                    <Route
+                        path="home"
+                        element={
+                            <ProtectedRoute>
+                                <Home />
+                            </ProtectedRoute>
+                        }
+                    />
 
                     <Route
-                        path="/"
+                        path="home"
                         element={
                             <ProtectedRoute>
                                 <Sidebar />

@@ -14,19 +14,18 @@ const Login = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         login(userId);
-        navigate('/');
+        navigate('home');
     };
 
     return (
         <div className="login-container">
             <div className="login-card">
                 <div className="logo-container">
-                    <div className="logo"></div>
-                    <h4 className="org-name">Rwanda Revenue Authority</h4>
+                    <img src="/public/Images/HomeLogo.jpeg" alt="Home" />
                 </div>
 
                 <h2 className="system-title">Strategic Intelligence & Investigation Division System</h2>
-                <h3 className="system-subtitle">SIIDS</h3>
+                <h3 className="system-subtitle">(SIIDs)</h3>
 
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">

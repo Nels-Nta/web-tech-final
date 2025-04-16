@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../Styles/Table.css';
 import { Link, Outlet } from 'react-router-dom';
 import {
@@ -62,9 +62,11 @@ const IntelligenceOfficer = () => {
                                         <SendIcon />
                                     </IconButton>
                                 </Link>
-                                <IconButton color="default">
-                                    <Description />
-                                </IconButton>
+                                <Link to={"/intelligence-officer/view"}>
+                                    <IconButton color={"primary"}>
+                                        <Description />
+                                    </IconButton>
+                                </Link>
                                 <IconButton color="success">
                                     <Add />
                                 </IconButton>

@@ -27,9 +27,9 @@ const InvestigationOfficer = () => {
                       <Search />
                   </IconButton>
               </div>
-              <Button variant="contained" color="primary" startIcon={<Add />}>
-                  New
-              </Button>
+              {/*<Button variant="contained" color="primary" startIcon={<Add />}>*/}
+              {/*    New*/}
+              {/*</Button>*/}
           </div>
 
           {/* Table */}

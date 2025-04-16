@@ -45,7 +45,7 @@ const DirectorIntelligence = () => {
                                 <Description />
                             </IconButton>
                         </Link>
-                        <Link to="/Director-Investigation">
+                        <Link to="/assistant-commissioner">
                             <IconButton color="success">
                                 <Check />
                             </IconButton>

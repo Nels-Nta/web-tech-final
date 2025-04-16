@@ -21,7 +21,6 @@ const Sidebar = () => {
             </div>
             <nav className="sidebar-nav">
                 <ul>
-                    {/* Intelligence Dropdown */}
                     <li>
                         <div onClick={toggleIntelligence} className="sidebar-item">
                             Intelligence
@@ -38,11 +37,14 @@ const Sidebar = () => {
                                         Intelligence Officer
                                     </NavLink>
                                 </li>
+                                <li>
+                                    <NavLink to='/surveillence-officer' className={({isActive}) => isActive ? 'active': ''}>
+                                        Surveillence Officer
+                                    </NavLink>
+                                </li>
                             </ul>
                         )}
                     </li>
-
-                    {/* Investigation Dropdown */}
                     <li>
                         <div onClick={toggleInvestigation} className="sidebar-item">
                             Investigation
@@ -59,18 +61,13 @@ const Sidebar = () => {
                                         Director Investigation
                                     </NavLink>
                                 </li>
-                                <li>
-                                    <NavLink to='/surveillence-officer' className={({isActive}) => isActive ? 'active': ''}>
-                                        Surveillence Officer
-                                    </NavLink>
-                                </li>
                             </ul>
                         )}
                     </li>
                     <li>
-                        <NavLink to="/assistant-commissioner" className={({ isActive }) => isActive ? 'active' : ''}>
-                            Assistant Commissioner
-                        </NavLink>
+                            <NavLink to="/assistant-commissioner" className={({ isActive }) => isActive ? 'active' : ''}>
+                                Assistant Commissioner
+                            </NavLink>
                     </li>
                     <li>
                         <NavLink to="/history" className={({ isActive }) => isActive ? 'active' : ''}>

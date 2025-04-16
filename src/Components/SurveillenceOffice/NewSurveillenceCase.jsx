@@ -1,5 +1,7 @@
 import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
+import AttachFileIcon from "@mui/icons-material/AttachFile";
+import {IconButton} from "@mui/material";
 
 const NewSurveillenceCase = () => {
     const [formData, setFormData] = useState({
@@ -101,7 +103,11 @@ const NewSurveillenceCase = () => {
                                 className="tax-report-form-textarea"
                                 required
                             />
+
                         </div>
+                        <IconButton >
+                            <AttachFileIcon />
+                        </IconButton>
                     </div>
 
                     <div className="tax-report-form-buttons">
