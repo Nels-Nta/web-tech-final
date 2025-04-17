@@ -68,7 +68,7 @@ const NewSurveillenceCase = () => {
                         </div>
 
                         <div>
-                            <label className="tax-report-form-label">Intellice Officer</label>
+                            <label className="tax-report-form-label">Surveillance Officer</label>
                             <input
                                 type="text"
                                 name="intelliceOfficer"

@@ -8,6 +8,10 @@ const TaxReportForm = () => {
         informerId: '',
         caseNumber: '',
         taxPayerTin: '',
+        taxPayerName: '',
+        taxPayerType: '',
+        taxPayerAddress:'',
+        period:'',
         intelliceOfficer: '',
         reportedDate: '',
         issueDescription: ''
@@ -38,7 +42,7 @@ const TaxReportForm = () => {
         <div className="tax-report-form-container">
             <div className="tax-report-form-card">
                 <div className="tax-report-form-header">
-                    <h1>Tax Report Form</h1>
+                    <h1>Informer's Log form</h1>
                 </div>
 
                 <form onSubmit={handleSubmit} className="tax-report-form">
@@ -78,7 +82,50 @@ const TaxReportForm = () => {
                                 required
                             />
                         </div>
-
+                        <div>
+                            <label className="tax-report-form-label">Tax Payer Name</label>
+                            <input
+                                type="text"
+                                name="taxPayerName"
+                                value={formData.taxPayerName}
+                                onChange={handleChange}
+                                className="tax-report-form-input"
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label className="tax-report-form-label">Tax Payer Type</label>
+                            <input
+                                type="text"
+                                name="taxPayerType"
+                                value={formData.taxPayerType}
+                                onChange={handleChange}
+                                className="tax-report-form-input"
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label className="tax-report-form-label">Tax Payer Address</label>
+                            <input
+                                type="text"
+                                name="address"
+                                value={formData.taxPayerAddress}
+                                onChange={handleChange}
+                                className="tax-report-form-input"
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label className="tax-report-form-label">Period</label>
+                            <input
+                                type="text"
+                                name="period"
+                                value={formData.period}
+                                onChange={handleChange}
+                                className="tax-report-form-input"
+                                required
+                            />
+                        </div>
                         <div>
                             <label className="tax-report-form-label">Intellice Officer</label>
                             <input
@@ -106,7 +153,7 @@ const TaxReportForm = () => {
                         </div>
 
                         <div>
-                            <label className="tax-report-form-label">Issue Description</label>
+                            <label className="tax-report-form-label">summary of information provided</label>
                             <textarea
                                 name="issueDescription"
                                 value={formData.issueDescription}

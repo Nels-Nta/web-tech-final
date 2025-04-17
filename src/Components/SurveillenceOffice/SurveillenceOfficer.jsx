@@ -67,9 +67,12 @@ const surveillenceOfficer = () => {
                   <IconButton color="success">
                     <Add />
                   </IconButton>
-                  <IconButton >
-                    <AttachFileIcon />
-                  </IconButton>
+                  <Link to="/surveillence/attachment">
+                    <IconButton >
+                      <AttachFileIcon />
+                    </IconButton>
+                  </Link>
+
                 </TableCell>
               </TableRow>
             </TableBody>

@@ -16,6 +16,8 @@ import TaxReportView from "./Components/TaxReportView.jsx";
 import History from './components/History';
 import NewCase from './Components/TaxReportForm.jsx'
 import './App.css';
+import {ClaimForm} from "./Components/ClaimForm.jsx";
+import {SClaimForm} from "./Components/SClaimForm.jsx"
 
 const ProtectedRoute = ({ children }) => {
     const { currentUser } = useContext(AuthContext);
@@ -94,6 +96,14 @@ function App() {
                         }
                     />
                     <Route
+                        path="intelligence-officer/attachment"
+                        element={
+                            <ProtectedRoute>
+                                <ClaimForm />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
                         path="investigation-officer"
                         element={
                         <ProtectedRoute>
@@ -115,6 +125,14 @@ function App() {
                                 <NewSurveillenceCase/>
                             </ProtectedRoute>
                         }/>
+                    <Route
+                        path="surveillence/attachment"
+                        element={
+                            <ProtectedRoute>
+                                <SClaimForm />
+                            </ProtectedRoute>
+                        }
+                    />
 
                     <Route
                         path="Director-Investigation"

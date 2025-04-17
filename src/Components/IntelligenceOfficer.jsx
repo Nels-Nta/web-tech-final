@@ -54,7 +54,7 @@ const IntelligenceOfficer = () => {
                             <TableCell>1</TableCell>
                             <TableCell>Land Tax</TableCell>
                             <TableCell style={{ fontSize: "12px", color: "#555" }}>
-                                submitted for review
+                                submitted to director for review
                             </TableCell>
                             <TableCell>
                                 <Link to={"/Director-Intelligence"}>
@@ -70,9 +70,11 @@ const IntelligenceOfficer = () => {
                                 <IconButton color="success">
                                     <Add />
                                 </IconButton>
-                                <IconButton >
-                                    <AttachFileIcon />
-                                </IconButton>
+                                <Link to="/intelligence-officer/attachment">
+                                    <IconButton >
+                                        <AttachFileIcon />
+                                    </IconButton>
+                                </Link>
                             </TableCell>
                         </TableRow>
                     </TableBody>
