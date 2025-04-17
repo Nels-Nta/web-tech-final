@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import { Calendar } from 'react-calendar';
-import {useNavigate} from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../Styles/TaxReportForm.css';
 
 const TaxReportForm = () => {
@@ -10,15 +9,27 @@ const TaxReportForm = () => {
         taxPayerTin: '',
         taxPayerName: '',
         taxPayerType: '',
-        taxPayerAddress:'',
-        period:'',
+        taxPayerAddress: '',
+        period: '',
         intelliceOfficer: '',
         reportedDate: '',
         issueDescription: ''
     });
 
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const navigate= useNavigate();
+    const [isEditMode, setIsEditMode] = useState(false);
+
+    const navigate = useNavigate();
+
+    // Check for existing data
+    useEffect(() => {
+        const storedData = localStorage.getItem('taxReportData');
+        if (storedData) {
+            setFormData(JSON.parse(storedData));
+            setIsEditMode(true);
+        }
+    }, []);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prevData => ({
@@ -30,19 +41,20 @@ const TaxReportForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         setIsSubmitting(true);
+
         setTimeout(() => {
+            localStorage.setItem('taxReportData', JSON.stringify(formData));
             setIsSubmitting(false);
-            console.log("Form submitted:", formData);
-            alert("Form submitted successfully! In a real app, you would be redirected to the report page.");
+            alert(isEditMode ? "Report updated successfully!" : "Report submitted successfully!");
+            navigate('/intelligence-officer/view');
         }, 1000);
-        navigate('/intelligence-officer')
     };
 
     return (
         <div className="tax-report-form-container">
             <div className="tax-report-form-card">
                 <div className="tax-report-form-header">
-                    <h1>Informer's Log form</h1>
+                    <h1>{isEditMode ? "Edit Informer's Log" : "Informer's Log Form"}</h1>
                 </div>
 
                 <form onSubmit={handleSubmit} className="tax-report-form">
@@ -108,7 +120,7 @@ const TaxReportForm = () => {
                             <label className="tax-report-form-label">Tax Payer Address</label>
                             <input
                                 type="text"
-                                name="address"
+                                name="taxPayerAddress"
                                 value={formData.taxPayerAddress}
                                 onChange={handleChange}
                                 className="tax-report-form-input"
@@ -127,7 +139,7 @@ const TaxReportForm = () => {
                             />
                         </div>
                         <div>
-                            <label className="tax-report-form-label">Intellice Officer</label>
+                            <label className="tax-report-form-label">Intelligence Officer</label>
                             <input
                                 type="text"
                                 name="intelliceOfficer"
@@ -140,20 +152,18 @@ const TaxReportForm = () => {
 
                         <div>
                             <label className="tax-report-form-label">Reported Date</label>
-                            <div className="tax-report-form-date-container">
-                                <input
-                                    type="date"
-                                    name="reportedDate"
-                                    value={formData.reportedDate}
-                                    onChange={handleChange}
-                                    className="tax-report-form-input"
-                                    required
-                                />
-                            </div>
+                            <input
+                                type="date"
+                                name="reportedDate"
+                                value={formData.reportedDate}
+                                onChange={handleChange}
+                                className="tax-report-form-input"
+                                required
+                            />
                         </div>
 
                         <div>
-                            <label className="tax-report-form-label">summary of information provided</label>
+                            <label className="tax-report-form-label">Summary of Information Provided</label>
                             <textarea
                                 name="issueDescription"
                                 value={formData.issueDescription}
@@ -169,7 +179,7 @@ const TaxReportForm = () => {
                         <button
                             type="button"
                             className="tax-report-form-button tax-report-form-button-cancel"
-                            onClick={()=>navigate('/intelligence-officer')}
+                            onClick={() => navigate('/tax-report-view')}
                         >
                             Cancel
                         </button>
@@ -184,7 +194,7 @@ const TaxReportForm = () => {
                                     Processing...
                                 </>
                             ) : (
-                                'Save'
+                                isEditMode ? 'Update' : 'Save'
                             )}
                         </button>
                     </div>

@@ -59,9 +59,12 @@ const AssistantCommissioner = () => {
                                         <SendIcon />
                                     </IconButton>
                                 </Link>
-                                <IconButton color="default">
-                                    <Description />
-                                </IconButton>
+                                <Link to={"/intelligence-officer/view"}>
+                                    <IconButton color="default">
+                                        <Description />
+                                    </IconButton>
+                                </Link>
+
                                 <IconButton color="success">
                                     <Add />
                                 </IconButton>

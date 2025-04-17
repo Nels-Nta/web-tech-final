@@ -1,24 +1,28 @@
-import React, {useState} from "react";
-import {useNavigate} from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
-import {IconButton} from "@mui/material";
+import { IconButton } from "@mui/material";
 
 const NewSurveillenceCase = () => {
     const [formData, setFormData] = useState({
         informerId: '',
         caseNumber: '',
         taxPayerTin: '',
+        taxPayerName: '',
+        taxPayerAddress: '',
+        taxType: '',
         intelliceOfficer: '',
         reportedDate: '',
         issueDescription: ''
     });
 
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const navigate= useNavigate();
+    const navigate = useNavigate();
+
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData(prevData => ({
-            ...prevData,
+        setFormData(prev => ({
+            ...prev,
             [name]: value
         }));
     };
@@ -26,117 +30,72 @@ const NewSurveillenceCase = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         setIsSubmitting(true);
+
         setTimeout(() => {
             setIsSubmitting(false);
-            console.log("Form submitted:", formData);
-            alert("Form submitted successfully! In a real app, you would be redirected to the report page.");
+            alert("Form submitted! Redirecting to view page...");
+            navigate('/surveillence-officer/view', { state: formData });
         }, 1000);
-        navigate('/intelligence-officer')
     };
 
     return (
         <div className="tax-report-form-container">
             <div className="tax-report-form-card">
                 <div className="tax-report-form-header">
-                    <h1>Surveillence Form</h1>
+                    <h1>Surveillance Form</h1>
                 </div>
 
                 <form onSubmit={handleSubmit} className="tax-report-form">
                     <div className="tax-report-form-grid">
                         <div>
-                            <label className="tax-report-form-label">Case Number</label>
-                            <input
-                                type="text"
-                                name="caseNumber"
-                                value={formData.caseNumber}
-                                onChange={handleChange}
-                                className="tax-report-form-input"
-                                required
-                            />
+                            <label>Case Number</label>
+                            <input type="text" name="caseNumber" value={formData.caseNumber} onChange={handleChange} required />
                         </div>
-
                         <div>
-                            <label className="tax-report-form-label">Tax Payer TIN</label>
-                            <input
-                                type="text"
-                                name="taxPayerTin"
-                                value={formData.taxPayerTin}
-                                onChange={handleChange}
-                                className="tax-report-form-input"
-                                required
-                            />
+                            <label>Informer ID</label>
+                            <input type="text" name="informerId" value={formData.informerId} onChange={handleChange} required />
                         </div>
-
                         <div>
-                            <label className="tax-report-form-label">Surveillance Officer</label>
-                            <input
-                                type="text"
-                                name="intelliceOfficer"
-                                value={formData.intelliceOfficer}
-                                onChange={handleChange}
-                                className="tax-report-form-input"
-                                required
-                            />
+                            <label>Tax Payer TIN</label>
+                            <input type="text" name="taxPayerTin" value={formData.taxPayerTin} onChange={handleChange} required />
                         </div>
-
                         <div>
-                            <label className="tax-report-form-label">Reported Date</label>
-                            <div className="tax-report-form-date-container">
-                                <input
-                                    type="date"
-                                    name="reportedDate"
-                                    value={formData.reportedDate}
-                                    onChange={handleChange}
-                                    className="tax-report-form-input"
-                                    required
-                                />
-                            </div>
+                            <label>Tax Payer Name</label>
+                            <input type="text" name="taxPayerName" value={formData.taxPayerName} onChange={handleChange} required />
                         </div>
-
                         <div>
-                            <label className="tax-report-form-label">Issue Description</label>
-                            <textarea
-                                name="issueDescription"
-                                value={formData.issueDescription}
-                                onChange={handleChange}
-                                rows="3"
-                                className="tax-report-form-textarea"
-                                required
-                            />
-
+                            <label>Tax Payer Address</label>
+                            <input type="text" name="taxPayerAddress" value={formData.taxPayerAddress} onChange={handleChange} required />
                         </div>
-                        <IconButton >
-                            <AttachFileIcon />
-                        </IconButton>
+                        <div>
+                            <label>Tax Type</label>
+                            <input type="text" name="taxType" value={formData.taxType} onChange={handleChange} required />
+                        </div>
+                        <div>
+                            <label>Surveillance Officer</label>
+                            <input type="text" name="intelliceOfficer" value={formData.intelliceOfficer} onChange={handleChange} required />
+                        </div>
+                        <div>
+                            <label>Reported Date</label>
+                            <input type="date" name="reportedDate" value={formData.reportedDate} onChange={handleChange} required />
+                        </div>
+                        <div>
+                            <label>Issue Description</label>
+                            <textarea name="issueDescription" value={formData.issueDescription} onChange={handleChange} rows="3" required />
+                        </div>
+                        <IconButton><AttachFileIcon /></IconButton>
                     </div>
 
                     <div className="tax-report-form-buttons">
-                        <button
-                            type="button"
-                            className="tax-report-form-button tax-report-form-button-cancel"
-                            onClick={()=>navigate('/surveillence-officer')}
-                        >
-                            Cancel
-                        </button>
-                        <button
-                            type="submit"
-                            className="tax-report-form-button tax-report-form-button-save"
-                            disabled={isSubmitting}
-                            onClick={()=>navigate('/surveillence-officer')}
-                        >
-                            {isSubmitting ? (
-                                <>
-                                    <span className="tax-report-form-button-spinner"></span>
-                                    Processing...
-                                </>
-                            ) : (
-                                'Save'
-                            )}
+                        <button type="button" onClick={() => navigate('/surveillence-officer')}>Cancel</button>
+                        <button type="submit" disabled={isSubmitting}>
+                            {isSubmitting ? 'Processing...' : 'Save'}
                         </button>
                     </div>
                 </form>
             </div>
         </div>
     );
-}
-export default NewSurveillenceCase
+};
+
+export default NewSurveillenceCase;

@@ -1,27 +1,28 @@
-import React from 'react';
-import {useNavigate} from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../Styles/TaxReportView.css';
 
 const TaxReportView = () => {
-    const navigate= useNavigate();
-    const reportData = {
-        caseNumber: 'FR00123456789',
-        informerId: 'INF01234567890',
-        reportedDate: '03/28/2025',
-        taxPayerTin: '6789-012-345',
-        intelliceOfficer: 'Agent Smith',
-        issueDescription: 'Tax Filing Evasion: Suspect failed to report income from overseas assets'
-    };
+    const navigate = useNavigate();
+    const [reportData, setReportData] = useState(null);
 
-    const currentDate = new Date().toLocaleDateString('en-US');
+    useEffect(() => {
+        const storedData = localStorage.getItem('taxReportData');
+        if (storedData) {
+            setReportData(JSON.parse(storedData));
+        } else {
+            alert("No report data found. Redirecting...");
+            navigate('/intelligence-officer');
+        }
+    }, [navigate]);
 
     const handlePrint = () => {
         window.print();
     };
 
-    const handleEdit = () => {
-        alert("In a real app, this would take you back to the form page");
-    };
+    if (!reportData) return <div>Loading...</div>;
+
+    const currentDate = new Date().toLocaleDateString('en-US');
 
     return (
         <div className="tax-report-container">
@@ -36,35 +37,20 @@ const TaxReportView = () => {
                 <div className="content">
                     <table className="report-table">
                         <tbody>
-                        <tr className="table-row">
-                            <td className="table-cell header-cell">Case ID</td>
-                            <td className="table-cell">{reportData.caseNumber}</td>
-                        </tr>
-                        <tr className="table-row">
-                            <td className="table-cell header-cell">Informer ID</td>
-                            <td className="table-cell">{reportData.informerId}</td>
-                        </tr>
-                        <tr className="table-row">
-                            <td className="table-cell header-cell">Reported Date</td>
-                            <td className="table-cell">{reportData.reportedDate}</td>
-                        </tr>
-                        <tr className="table-row">
-                            <td className="table-cell header-cell">Tax Payer TIN</td>
-                            <td className="table-cell">{reportData.taxPayerTin}</td>
-                        </tr>
-                        <tr className="table-row">
-                            <td className="table-cell header-cell">Investigation Officer</td>
-                            <td className="table-cell">{reportData.intelliceOfficer}</td>
-                        </tr>
-                        <tr>
-                            <td className="table-cell header-cell">Issue Description</td>
-                            <td className="table-cell">{reportData.issueDescription}</td>
-                        </tr>
+                        <tr><td className="header-cell">Informer ID</td><td>{reportData.informerId}</td></tr>
+                        <tr><td className="header-cell">Case Number</td><td>{reportData.caseNumber}</td></tr>
+                        <tr><td className="header-cell">Tax Payer TIN</td><td>{reportData.taxPayerTin}</td></tr>
+                        <tr><td className="header-cell">Tax Payer Name</td><td>{reportData.taxPayerName}</td></tr>
+                        <tr><td className="header-cell">Tax Payer Type</td><td>{reportData.taxPayerType}</td></tr>
+                        <tr><td className="header-cell">Tax Payer Address</td><td>{reportData.taxPayerAddress}</td></tr>
+                        <tr><td className="header-cell">Period</td><td>{reportData.period}</td></tr>
+                        <tr><td className="header-cell">Investigation Officer</td><td>{reportData.intelliceOfficer}</td></tr>
+                        <tr><td className="header-cell">Reported Date</td><td>{reportData.reportedDate}</td></tr>
+                        <tr><td className="header-cell">Issue Description</td><td>{reportData.issueDescription}</td></tr>
                         </tbody>
                     </table>
-
                     <div className="footer">
-                        <p>Issued At: Flagship Data Center</p>
+                        <p>Issued At: RRA Offices</p>
                         <p>Date: {currentDate}</p>
                     </div>
                 </div>

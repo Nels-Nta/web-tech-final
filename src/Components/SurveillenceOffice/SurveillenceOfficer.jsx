@@ -48,22 +48,25 @@ const surveillenceOfficer = () => {
             </TableHead>
             <TableBody>
               <TableRow>
-                <TableCell>CS001/25</TableCell>
+                <TableCell>CS003/25</TableCell>
                 <TableCell>100111</TableCell>
                 <TableCell>1</TableCell>
-                <TableCell>Land Tax</TableCell>
+                <TableCell>VAT</TableCell>
                 <TableCell style={{ fontSize: "12px", color: "#555" }}>
-                  Received from Investigation Officer
+                  Sent to Director of Intelligence
                 </TableCell>
                 <TableCell>
-                  <Link to={"/Director-Investigation"}>
+                  <Link to="/Director-Investigation">
                     <IconButton >
                       <SendIcon />
                     </IconButton>
                   </Link>
-                  <IconButton color="default">
-                    <Description />
-                  </IconButton>
+                  <Link to="/surveillence-officer/view">
+                    <IconButton color="default">
+                      <Description />
+                    </IconButton>
+                  </Link>
+
                   <IconButton color="success">
                     <Add />
                   </IconButton>

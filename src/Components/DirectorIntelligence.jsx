@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton } from "@mui/material";
-import { Description, Check, Close, } from "@mui/icons-material";
-import { Link } from 'react-router-dom';
+import {
+    Table, TableBody, TableCell, TableContainer,
+    TableHead, TableRow, Paper, IconButton
+} from "@mui/material";
+import { Description, Check, Close } from "@mui/icons-material";
+import { Link, useNavigate } from 'react-router-dom';
 
 const DirectorIntelligence = () => {
     const [searchQuery, setSearchQuery] = useState('');
@@ -20,21 +23,35 @@ const DirectorIntelligence = () => {
         }
     ]);
 
+    const navigate = useNavigate();
+
     const handleApprove = (index) => {
         const updatedCases = [...cases];
-        updatedCases[index].status = 'Sent to Assistant Commissioner';
+        updatedCases[index] = {
+            ...updatedCases[index],
+            status: 'Sent to Assistant Commissioner'
+        };
         setCases(updatedCases);
+        setTimeout(() => {
+            navigate('/assistant-commissioner');
+        }, 3000);
     };
 
     const handleReject = (index) => {
         const updatedCases = [...cases];
-        updatedCases[index].status = 'Classified';
+        updatedCases[index] = {
+            ...updatedCases[index],
+            status: 'Classified'
+        };
         setCases(updatedCases);
     };
 
     const handleDelegateChange = (e, index) => {
         const updatedCases = [...cases];
-        updatedCases[index].delegate = e.target.value;
+        updatedCases[index] = {
+            ...updatedCases[index],
+            delegate: e.target.value
+        };
         setCases(updatedCases);
     };
 
@@ -54,9 +71,7 @@ const DirectorIntelligence = () => {
                             placeholder="Search..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            style={{
-                                border: "none"
-                            }}
+                            style={{ border: "none" }}
                         />
                         <button type="submit">
                             <i className="fa fa-search"></i>
@@ -105,11 +120,10 @@ const DirectorIntelligence = () => {
                                             <Description />
                                         </IconButton>
                                     </Link>
-                                    <Link to={"/assistant-commissioner"}>
-                                        <IconButton color="success" onClick={() => handleApprove(index)}>
-                                            <Check />
-                                        </IconButton>
-                                    </Link>
+
+                                    <IconButton color="success" onClick={() => handleApprove(index)}>
+                                        <Check />
+                                    </IconButton>
 
                                     <IconButton color="error" onClick={() => handleReject(index)}>
                                         <Close />
