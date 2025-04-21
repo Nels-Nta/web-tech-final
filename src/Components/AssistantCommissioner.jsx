@@ -1,21 +1,53 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Button,
     IconButton,
     Paper,
-    Table, TableBody,
+    Table,
+    TableBody,
     TableCell,
     TableContainer,
     TableHead,
     TableRow,
-    TextField
+    TextField,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
 } from "@mui/material";
-import {Add, ArrowForward, Description, Search} from "@mui/icons-material";
-import AttachFileIcon from "@mui/icons-material/AttachFile";
-import {Link} from 'react-router-dom'
+import {
+    Add,
+    Search,
+    Description,
+    Check,
+    Close
+} from "@mui/icons-material";
 import SendIcon from "@mui/icons-material/Send";
+import { Link } from 'react-router-dom';
 
 const AssistantCommissioner = () => {
+    const [status, setStatus] = useState("Submitted to Director Officer");
+    const [closeDialogOpen, setCloseDialogOpen] = useState(false);
+    const [closeReason, setCloseReason] = useState("");
+
+    const handleSuccess = () => {
+        setStatus("Success");
+    };
+
+    const handleCloseCase = () => {
+        setCloseDialogOpen(true);
+    };
+
+    const handleDialogClose = () => {
+        setCloseDialogOpen(false);
+    };
+
+    const handleConfirmClose = () => {
+        setStatus(`Case Closed: ${closeReason}`);
+        setCloseDialogOpen(false);
+        setCloseReason("");
+    };
+
     return (
         <div style={{ padding: "20px" }}>
             {/* Search Bar & New Button */}
@@ -51,11 +83,11 @@ const AssistantCommissioner = () => {
                             <TableCell>1</TableCell>
                             <TableCell>Land Tax</TableCell>
                             <TableCell style={{ fontSize: "12px", color: "#555" }}>
-                                Submitted to Director Officer
+                                {status}
                             </TableCell>
                             <TableCell>
                                 <Link to={"/Director-Investigation"}>
-                                    <IconButton >
+                                    <IconButton>
                                         <SendIcon />
                                     </IconButton>
                                 </Link>
@@ -65,18 +97,42 @@ const AssistantCommissioner = () => {
                                     </IconButton>
                                 </Link>
 
-                                <IconButton color="success">
-                                    <Add />
-                                </IconButton>
-                                <IconButton >
-                                    <AttachFileIcon />
+                                {/* Check - Mark as Success */}
+                                <IconButton color="success" onClick={handleSuccess}>
+                                    <Check />
                                 </IconButton>
 
+                                {/* Close - Trigger Reason Input */}
+                                <IconButton onClick={handleCloseCase}>
+                                    <Close />
+                                </IconButton>
                             </TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>
             </TableContainer>
+
+            {/* Dialog for Close Reason */}
+            <Dialog open={closeDialogOpen} onClose={handleDialogClose}>
+                <DialogTitle>Reason for Case Closure</DialogTitle>
+                <DialogContent>
+                    <TextField
+                        fullWidth
+                        multiline
+                        rows={3}
+                        value={closeReason}
+                        onChange={(e) => setCloseReason(e.target.value)}
+                        placeholder="Enter reason..."
+                        variant="outlined"
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleDialogClose} color="secondary">Cancel</Button>
+                    <Button onClick={handleConfirmClose} variant="contained" color="primary" disabled={!closeReason.trim()}>
+                        Confirm
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </div>
     );
 };

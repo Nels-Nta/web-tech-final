@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import {
     Table, TableBody, TableCell, TableContainer,
-    TableHead, TableRow, Paper, IconButton
+    TableHead, TableRow, Paper, IconButton,
+    Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField
 } from "@mui/material";
 import { Description, Check, Close } from "@mui/icons-material";
 import { Link, useNavigate } from 'react-router-dom';
@@ -14,22 +15,29 @@ const DirectorIntelligence = () => {
             delegate: '100111',
             reportedDate: '21/09/2025',
             status: 'Report received from Intelligence Officer',
+            reason: ''
         },
         {
             id: 'CS002/25',
             delegate: '100114',
             reportedDate: '22/09/2025',
             status: 'Received from Surveillance Officer',
+            reason: ''
         }
     ]);
 
     const navigate = useNavigate();
 
+    const [closeDialogOpen, setCloseDialogOpen] = useState(false);
+    const [selectedCaseIndex, setSelectedCaseIndex] = useState(null);
+    const [reasonInput, setReasonInput] = useState('');
+
     const handleApprove = (index) => {
         const updatedCases = [...cases];
         updatedCases[index] = {
             ...updatedCases[index],
-            status: 'Sent to Assistant Commissioner'
+            status: 'Sent to Assistant Commissioner',
+            reason: ''
         };
         setCases(updatedCases);
         setTimeout(() => {
@@ -37,13 +45,21 @@ const DirectorIntelligence = () => {
         }, 3000);
     };
 
-    const handleReject = (index) => {
+    const handleOpenCloseDialog = (index) => {
+        setSelectedCaseIndex(index);
+        setReasonInput('');
+        setCloseDialogOpen(true);
+    };
+
+    const handleConfirmClose = () => {
         const updatedCases = [...cases];
-        updatedCases[index] = {
-            ...updatedCases[index],
-            status: 'Classified'
+        updatedCases[selectedCaseIndex] = {
+            ...updatedCases[selectedCaseIndex],
+            status: 'Case Closed',
+            reason: reasonInput
         };
         setCases(updatedCases);
+        setCloseDialogOpen(false);
     };
 
     const handleDelegateChange = (e, index) => {
@@ -109,10 +125,12 @@ const DirectorIntelligence = () => {
                                 <TableCell>{caseItem.reportedDate}</TableCell>
                                 <TableCell style={{
                                     color: caseItem.status === "Sent to Assistant Commissioner" ? "green" :
-                                        caseItem.status === "Classified" ? "red" : "#555",
+                                        caseItem.status === "Case Closed" ? "red" : "#555",
                                     fontWeight: "bold"
                                 }}>
-                                    {caseItem.status}
+                                    {caseItem.status === "Case Closed" && caseItem.reason
+                                        ? `${caseItem.status} - ${caseItem.reason}`
+                                        : caseItem.status}
                                 </TableCell>
                                 <TableCell>
                                     <Link to="/intelligence-officer/view">
@@ -125,7 +143,7 @@ const DirectorIntelligence = () => {
                                         <Check />
                                     </IconButton>
 
-                                    <IconButton color="error" onClick={() => handleReject(index)}>
+                                    <IconButton color="error" onClick={() => handleOpenCloseDialog(index)}>
                                         <Close />
                                     </IconButton>
                                 </TableCell>
@@ -134,6 +152,35 @@ const DirectorIntelligence = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
+
+            {/* Close Reason Dialog */}
+            <Dialog open={closeDialogOpen} onClose={() => setCloseDialogOpen(false)}>
+                <DialogTitle>Reason for Case Closure</DialogTitle>
+                <DialogContent>
+                    <TextField
+                        fullWidth
+                        multiline
+                        rows={3}
+                        value={reasonInput}
+                        onChange={(e) => setReasonInput(e.target.value)}
+                        placeholder="Enter reason..."
+                        variant="outlined"
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => setCloseDialogOpen(false)} color="secondary">
+                        Cancel
+                    </Button>
+                    <Button
+                        onClick={handleConfirmClose}
+                        variant="contained"
+                        color="primary"
+                        disabled={!reasonInput.trim()}
+                    >
+                        Confirm
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </div>
     );
 };
