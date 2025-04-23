@@ -16,7 +16,7 @@ import {
     TextField
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
-import { Check, Close, Description } from "@mui/icons-material";
+import { Check, Close, Description, Search } from "@mui/icons-material";
 
 const DirectorInvestigation = () => {
     const [searchQuery, setSearchQuery] = useState('');
@@ -32,13 +32,12 @@ const DirectorInvestigation = () => {
             id: 'CS002/25',
             delegate: '100125',
             reportedDate: '22/09/2025',
-            status: 'Received from Assistant Commissioner',
+            status: 'Sent to Assistant Commissioner',
             reason: ''
         }
     ]);
 
     const navigate = useNavigate();
-
     const [closeDialogOpen, setCloseDialogOpen] = useState(false);
     const [selectedCaseIndex, setSelectedCaseIndex] = useState(null);
     const [reasonInput, setReasonInput] = useState('');
@@ -87,21 +86,22 @@ const DirectorInvestigation = () => {
 
     return (
         <div className="page-container" style={{ padding: "20px" }}>
-            <TableContainer component={Paper}>
-                <div className="search-container" style={{ padding: '10px' }}>
-                    <form onSubmit={(e) => e.preventDefault()}>
-                        <input
-                            type="text"
-                            placeholder="Search..."
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            style={{ border: "none" }}
-                        />
-                        <button type="submit">
-                            <i className="fa fa-search"></i>
-                        </button>
-                    </form>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "10px" }}>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                    <TextField
+                        size="small"
+                        placeholder="Search"
+                        variant="outlined"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                    <IconButton>
+                        <Search />
+                    </IconButton>
                 </div>
+            </div>
+
+            <TableContainer component={Paper}>
                 <Table>
                     <TableHead>
                         <TableRow style={{ backgroundColor: "#cfd8dc" }}>
@@ -132,7 +132,7 @@ const DirectorInvestigation = () => {
                                 </TableCell>
                                 <TableCell>{caseItem.reportedDate}</TableCell>
                                 <TableCell style={{
-                                    color: caseItem.status === "Received from Assistant Commissioner" ? "green" :
+                                    color: caseItem.status === "Received from Assistant Commissioner" ? "default" :
                                         caseItem.status === "Case Closed" ? "red" : "#555",
                                     fontWeight: "bold"
                                 }}>
@@ -141,7 +141,7 @@ const DirectorInvestigation = () => {
                                         : caseItem.status}
                                 </TableCell>
                                 <TableCell>
-                                    <Link to="/intelligence-officer/view">
+                                    <Link to={`/intelligence-officer/view/${caseItem.id}`}>
                                         <IconButton color="primary">
                                             <Description />
                                         </IconButton>

@@ -31,7 +31,7 @@ const AssistantCommissioner = () => {
     const [closeReason, setCloseReason] = useState("");
 
     const handleSuccess = () => {
-        setStatus("Success");
+        setStatus("Legal action taking place");
     };
 
     const handleCloseCase = () => {
@@ -50,7 +50,6 @@ const AssistantCommissioner = () => {
 
     return (
         <div style={{ padding: "20px" }}>
-            {/* Search Bar & New Button */}
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "10px" }}>
                 <div style={{ display: "flex", alignItems: "center" }}>
                     <TextField size="small" placeholder="Search" variant="outlined" />
@@ -58,9 +57,6 @@ const AssistantCommissioner = () => {
                         <Search />
                     </IconButton>
                 </div>
-                <Button variant="contained" color="primary" startIcon={<Add />}>
-                    New
-                </Button>
             </div>
 
             {/* Table */}
@@ -87,7 +83,7 @@ const AssistantCommissioner = () => {
                             </TableCell>
                             <TableCell>
                                 <Link to={"/Director-Investigation"}>
-                                    <IconButton>
+                                    <IconButton color={"inherit"}>
                                         <SendIcon />
                                     </IconButton>
                                 </Link>
@@ -97,13 +93,11 @@ const AssistantCommissioner = () => {
                                     </IconButton>
                                 </Link>
 
-                                {/* Check - Mark as Success */}
                                 <IconButton color="success" onClick={handleSuccess}>
                                     <Check />
                                 </IconButton>
 
-                                {/* Close - Trigger Reason Input */}
-                                <IconButton onClick={handleCloseCase}>
+                                <IconButton color={"error"} onClick={handleCloseCase}>
                                     <Close />
                                 </IconButton>
                             </TableCell>

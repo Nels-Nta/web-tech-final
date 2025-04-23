@@ -4,7 +4,7 @@ import {
     TableHead, TableRow, Paper, IconButton,
     Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField
 } from "@mui/material";
-import { Description, Check, Close } from "@mui/icons-material";
+import { Description, Check, Close, Search } from "@mui/icons-material";
 import { Link, useNavigate } from 'react-router-dom';
 
 const DirectorIntelligence = () => {
@@ -79,21 +79,22 @@ const DirectorIntelligence = () => {
 
     return (
         <div className="page-container" style={{ padding: "20px" }}>
-            <TableContainer component={Paper}>
-                <div className="search-container" style={{ padding: '10px' }}>
-                    <form onSubmit={(e) => e.preventDefault()}>
-                        <input
-                            type="text"
-                            placeholder="Search..."
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            style={{ border: "none" }}
-                        />
-                        <button type="submit">
-                            <i className="fa fa-search"></i>
-                        </button>
-                    </form>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "10px" }}>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                    <TextField
+                        size="small"
+                        placeholder="Search"
+                        variant="outlined"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                    <IconButton>
+                        <Search />
+                    </IconButton>
                 </div>
+            </div>
+
+            <TableContainer component={Paper}>
                 <Table>
                     <TableHead>
                         <TableRow style={{ backgroundColor: "#cfd8dc" }}>
